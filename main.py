@@ -3,7 +3,13 @@ import polars as pl
 import streamlit as st
 
 alt.themes.enable("vox")
-st.set_page_config(layout="wide")
+
+st.set_page_config(
+    page_title="Startups in Germany 2024",
+    page_icon=":chart_with_upwards_trend:",
+    layout="wide",
+    initial_sidebar_state="collapsed",
+)
 
 SIFTED_50_FILE = "sifted_50_germany_top_growing_startups.csv"
 
