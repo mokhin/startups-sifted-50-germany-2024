@@ -38,6 +38,7 @@ def bar_chart(
     x: str,
     func: str,
     title: str = "",
+    is_y_label: bool = True,
 ) -> alt.Chart:
     bars = (
         alt.Chart(df, title=title)
@@ -47,7 +48,9 @@ def bar_chart(
                 f"{y}:N",
                 sort=alt.EncodingSortField(op="count", order="descending"),
                 title=None,
-                axis=alt.Axis(labelColor="black", labelBaseline="middle"),
+                axis=alt.Axis(
+                    labelColor="black", labelBaseline="middle", labels=is_y_label
+                ),
             ),
             x=alt.X(f"{func}({x})", title=None, axis=None),
         )
@@ -59,7 +62,7 @@ def bar_chart(
         dx=3,
     ).encode(text=f"{func}({x}):Q")
 
-    return bars + text
+    return (bars + text).properties(width=1000 / 4)
 
 
 def combine_bar_charts(*plots):
@@ -87,7 +90,7 @@ def main():
     col_1, col_2, _ = st.columns([1, 1, 4])
 
     # Total scorecards
-    col_1, col_2, col_3, col_4 = st.columns(4)
+    col_1, col_2, col_3, col_4 = st.columns([2, 1.5, 1.5, 1.5])
     with col_1:
         st.metric(label="Total Startups", value=startups_df.height)
 
@@ -141,6 +144,7 @@ def main():
                 x="Employees",
                 func="sum",
                 title="Number of Employees",
+                is_y_label=False,
             ),
             bar_chart(
                 df=filtered_df,
@@ -148,6 +152,7 @@ def main():
                 x="Total Funding (€M)",
                 func="sum",
                 title="Total Funding (€M)",
+                is_y_label=False,
             ),
             bar_chart(
                 df=filtered_df,
@@ -155,6 +160,7 @@ def main():
                 x="2-yr Revenue CAGR (%)",
                 func="median",
                 title="Median Revenue Grow (2-yr CAGR %)",
+                is_y_label=False,
             ),
         ),
     )
@@ -174,18 +180,21 @@ def main():
                 y="Industry",
                 x="Employees",
                 func="sum",
+                is_y_label=False,
             ),
             bar_chart(
                 df=filtered_df,
                 y="Industry",
                 x="Total Funding (€M)",
                 func="sum",
+                is_y_label=False,
             ),
             bar_chart(
                 df=filtered_df,
                 y="Industry",
                 x="2-yr Revenue CAGR (%)",
                 func="median",
+                is_y_label=False,
             ),
         ),
     )
