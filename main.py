@@ -162,28 +162,24 @@ def main():
                 y="Industry",
                 x="Company",
                 func="count",
-                # title="Number of Startups in Top 50",
             ),
             bar_chart(
                 df=filtered_df,
                 y="Industry",
                 x="Employees",
                 func="sum",
-                # title="Number of Employees",
             ),
             bar_chart(
                 df=filtered_df,
                 y="Industry",
                 x="Total Funding (€M)",
                 func="sum",
-                # title="Total Funding (€M)",
             ),
             bar_chart(
                 df=filtered_df,
                 y="Industry",
                 x="2-yr Revenue CAGR (%)",
                 func="median",
-                # title="Median Revenue Grow (2-yr CAGR %)",
             ),
         ),
     )
